@@ -1,6 +1,11 @@
-const getTsTemplate = (fileName, filePath) => {
-  return (`
-  import { requestGet, requestPost } from '@/common/request';
+const getTsTemplate = ({ fileName, data, config }) => {
+  const getMethod = () => {
+    if (data.method === 'GET') return 'requestGet';
+    if (data.method === 'POST') return 'requestPost';
+  };
+
+  return `
+  import { ${getMethod()} } from '${config.requestPath}';
 
   export interface ${fileName}Params {
   }
@@ -9,12 +14,12 @@ const getTsTemplate = (fileName, filePath) => {
   }
 
   export async function ${fileName}(params: ${fileName}Params): Promise<${fileName}Res> {
-    return await requestGet('${filePath}', params);
+    return await requestGet('${data.path}', params);
   }
   
-  `)
-}
+  `;
+};
 
 module.exports = {
-  getTsTemplate
-}
+  getTsTemplate,
+};
