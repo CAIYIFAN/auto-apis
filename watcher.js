@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const template = require('./template');
 
-const watcher = chokidar.watch(path.resolve(__dirname, './mock'), {
+const watcher = chokidar.watch(path.resolve(__dirname, '../mock'), {
   ignored: /.*\.(?!js$)/,
 });
 
@@ -20,18 +20,23 @@ watcher.on('change', (key) => {
   const basePath = path.resolve(__dirname, '../src/apis' + filePath + '.ts');
   const dirPath = path.resolve(__dirname, '../src/apis/' + file[1]);
   const data = require(key);
-  const fileGroup = fs
-    .readdirSync(dirPath)
-    .map((item) => item.split('.')[0])
-    .filter((item) => item !== 'index');
   const config = {
     requestPath: '@/common/request',
   };
+  console.log(data);
   if (fs.existsSync(dirPath)) {
+    const fileGroup = fs
+      .readdirSync(dirPath)
+      .map((item) => item.split('.')[0])
+      .filter((item) => item !== 'index');
     !fs.existsSync(basePath) && fs.writeFileSync(basePath, template.getTsTemplate({ fileName, data, config }));
     fs.writeFileSync(dirPath + '/index.ts', template.getIndexTemplate(fileGroup));
   } else {
     fs.mkdirSync(dirPath);
+    const fileGroup = fs
+      .readdirSync(dirPath)
+      .map((item) => item.split('.')[0])
+      .filter((item) => item !== 'index');
     fs.writeFileSync(dirPath + '/index.ts', template.getIndexTemplate(fileGroup));
     fs.writeFileSync(basePath, template.getTsTemplate({ fileName, data, config }));
   }

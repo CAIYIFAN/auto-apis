@@ -12,6 +12,7 @@ export interface ${fileName}Params {
 export interface ${fileName}Res {
 }
 
+//${data.description}
 export async function ${fileName}(params: ${fileName}Params): Promise<${fileName}Res> {
   return await requestGet('${data.path}', params);
 }`;
