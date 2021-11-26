@@ -3,7 +3,13 @@ const fs = require('fs');
 const path = require('path');
 const template = require('./template');
 
-const watcher = chokidar.watch(path.resolve(__dirname, '../mock'), {
+const config = {
+  mockPath: './mock',
+  requestPath: '@/common/request',
+  apisPath: './src/apis'
+}
+
+const watcher = chokidar.watch(path.resolve(__dirname, config.mockPath), {
   ignored: /.*\.(?!js$)/,
 });
 
@@ -17,13 +23,9 @@ watcher.on('change', (key) => {
   const filePath = getFilename(key);
   const file = filePath.split('/');
   const fileName = file[file.length - 1];
-  const basePath = path.resolve(__dirname, '../src/apis' + filePath + '.ts');
-  const dirPath = path.resolve(__dirname, '../src/apis/' + file[1]);
+  const basePath = path.resolve(__dirname, config.apisPath + filePath + '.ts');
+  const dirPath = path.resolve(__dirname, config.apisPath + '/' + file[1]);
   const data = require(key);
-  const config = {
-    requestPath: '@/common/request',
-  };
-  console.log(data);
   if (fs.existsSync(dirPath)) {
     const fileGroup = fs
       .readdirSync(dirPath)

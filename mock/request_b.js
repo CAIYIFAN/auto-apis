@@ -5,7 +5,8 @@ const method = 'GET'
 const description = ''
 
 const query = {
-
+  ret: '0',
+  msg: 'success'
 }
 
 const response = {
