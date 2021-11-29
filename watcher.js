@@ -2,10 +2,14 @@ const chokidar = require('chokidar');
 const fs = require('fs');
 const path = require('path');
 const template = require('./template');
+const utils = require('./utils');
+const { processKeyWord, getFilename } =  utils;
 
 const config = {
   mockPath: './mock',
   requestPath: '@/common/request',
+  requestGet: 'requestGet',
+  requestPost: 'requestPost',
   apisPath: './src/apis'
 }
 
@@ -13,16 +17,10 @@ const watcher = chokidar.watch(path.resolve(__dirname, config.mockPath), {
   ignored: /.*\.(?!js$)/,
 });
 
-function getFilename(path) {
-  const ar = path.split('/');
-  const filename = ar[ar.length - 1].slice(0, -3);
-  return '/' + filename.split(/_+/).join('/');
-}
-
 watcher.on('change', (key) => {
   const filePath = getFilename(key);
   const file = filePath.split('/');
-  const fileName = file[file.length - 1];
+  const fileName = processKeyWord(file[file.length - 1]);
   const basePath = path.resolve(__dirname, config.apisPath + filePath + '.ts');
   const dirPath = path.resolve(__dirname, config.apisPath + '/' + file[1]);
   const data = require(key);

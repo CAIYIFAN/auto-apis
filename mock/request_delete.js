@@ -5,11 +5,7 @@ const method = 'GET'
 const description = ''
 
 const query = {
-  a: '111',
-  b: {
-    c: '11',
-    d: 1
-  }
+
 }
 
 const response = {
