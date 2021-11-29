@@ -1,7 +1,9 @@
+import { _delete } from './_delete';
+import { a } from './a';
 import { b } from './b';
-import { delete } from './delete';
 
 export default {
+  _delete,
+  a,
   b,
-  delete,
 };
