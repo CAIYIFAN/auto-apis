@@ -30,11 +30,9 @@ watcher.on('change', (key) => {
     initPath = initPath + '/' + file[i]
     if(!fs.existsSync(initPath)) {
       fs.mkdirSync(initPath);
-      // fs.writeFileSync(dirPath + '/index.ts', template.getIndexTemplate(fileGroup));
     }
   }
   const data = require(key);
-  // if (fs.existsSync(dirPath)) {
     !fs.existsSync(basePath) && fs.writeFileSync(basePath, template.getTsTemplate({ fileName, data, config }));
     let indexPath = basePath.split('/')
     indexPath.pop();
@@ -48,13 +46,4 @@ watcher.on('change', (key) => {
     })
     .filter((item) => item !== 'index');
     fs.writeFileSync(indexPath + '/index.ts', template.getIndexTemplate(fileGroup));
-  // } else {
-    // fs.mkdirSync(dirPath);
-    // fs.writeFileSync(basePath, template.getTsTemplate({ fileName, data, config }));
-    // const fileGroup = fs
-    //   .readdirSync(dirPath)
-    //   .map((item) => item.split('.')[0])
-    //   .filter((item) => item !== 'index');
-    // fs.writeFileSync(dirPath + '/index.ts', template.getIndexTemplate(fileGroup));
-  // }
 });
