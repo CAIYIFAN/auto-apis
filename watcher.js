@@ -44,6 +44,7 @@ watcher.on('change', (key) => {
        return item.split('.')[0]
       }
     })
+    .filter((item => item !== undefined))
     .filter((item) => item !== 'index');
     fs.writeFileSync(indexPath + '/index.ts', template.getIndexTemplate(fileGroup));
 });

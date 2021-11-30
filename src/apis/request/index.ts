@@ -1,9 +1,9 @@
-import { _delete } from './_delete';
+import { undefined } from './undefined';
 import { a } from './a';
 import { b } from './b';
 
 export default {
-  _delete,
+  undefined,
   a,
   b,
 };
