@@ -5,7 +5,6 @@ import { d } from './d';
 
 export default {
   _delete,
-  undefined,
   a,
   b,
   d,
