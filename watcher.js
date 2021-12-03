@@ -19,7 +19,6 @@ const watcher = chokidar.watch(path.resolve(__dirname, config.mockPath), {
 
 watcher.on('change', (key) => {
   let filePath = getFilename(key);
-  console.log(filePath)
   const file = filePath.split('/');
   const fileName = processKeyWord(file[file.length - 1]);
   file[file.length-1] = fileName
@@ -44,6 +43,7 @@ watcher.on('change', (key) => {
        return item.split('.')[0]
       }
     })
+    .filter((item) => item !== undefined)
     .filter((item) => item !== 'index');
     fs.writeFileSync(indexPath + '/index.ts', template.getIndexTemplate(fileGroup));
 });
