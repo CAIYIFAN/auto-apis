@@ -1,4 +1,5 @@
 const constants = require('./constants')
+const fs = require('fs')
 
 function processKeyWord(fileName, addKeywords='') {
   if (constants.keywords.includes(fileName)) {
@@ -46,9 +47,20 @@ function toDeleteStr(str, keyword) {
   return tmp.join('');
 }
 
+function getMockPath(mockPath) {
+  const fileGroup = fs.readdirSync(mockPath);
+  const mock = fileGroup.map((item) => ({
+    path: '/' + item.split('_').join('/').split('.')[0],
+    fileName: mockPath + '/' + item
+  }))
+  console.log(mock);
+  return mock;
+}
+
 module.exports = {
   processKeyWord,
   getFilename,
   toTsType,
-  toDeleteStr
+  toDeleteStr,
+  getMockPath
 }
