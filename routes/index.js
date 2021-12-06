@@ -9,10 +9,8 @@ function getMockPath(mockPath) {
     path: '/' + item.split('_').join('/').split('.')[0],
     fileName: mockPath + '/' + item
   }))
-  console.log(mock);
   return mock;
 }
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

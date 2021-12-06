@@ -25,9 +25,9 @@ watcher.on('add', path => {
     }
 })
 
-watcher.on('change', path => {
+// watcher.on('change', path => {
 
-})
+// })
 
 watcher.on('unlink', path => {
     let index = workTree.indexOf(path);

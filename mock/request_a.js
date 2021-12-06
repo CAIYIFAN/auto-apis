@@ -14,7 +14,8 @@ const query = {
 
 const response = {
   ret: '0',
-  msg: 'success'
+  msg: 'success',
+  data: {}
 }
 
 module.exports = {
