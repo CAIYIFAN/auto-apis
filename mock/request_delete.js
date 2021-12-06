@@ -1,4 +1,4 @@
-const path = '/request/a'
+const path = '/request/delete'
 
 const method = 'GET'
 
