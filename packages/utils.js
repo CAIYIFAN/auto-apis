@@ -27,12 +27,19 @@ function toTsType (data) {
   return str;
 }
 
-function toTsObj (data) {
+function toTsObj(data) {
   for (let key in data) {
-    if(isObject(data[key])) {
-      toTsType(data[key])
-    }else{
-      data[key] = typeof data[key] + ";"
+    if (isObject(data[key])) {
+      toTsType(data[key]);
+    } else {
+      if (typeof data[key] === 'object') {
+        if (Array.isArray(data[key])) {
+          toTsObj(data[key][0]);
+          data[key] = `Array<{${JSON.stringify(data[key][0])}}> | [];`;
+        }
+      } else {
+        data[key] = typeof data[key] + ';';
+      }
     }
   }
 }
