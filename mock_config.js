@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
   mockPath: '/mock',
   requestPath: '@/common/request',
   requestGet: 'requestGet',
