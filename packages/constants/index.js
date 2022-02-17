@@ -37,6 +37,9 @@ const keywords = ["abstract", "arguments", "boolean", "break", "byte",
 "onload", "onmouseup", "onmousedown", "onsubmit",
 ]
 
+const fixedPath = '../..'
+
 module.exports = {
-  keywords
+  keywords,
+  fixedPath
 }

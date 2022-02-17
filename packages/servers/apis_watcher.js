@@ -4,10 +4,11 @@ const path = require('path');
 const template = require('../utils/template');
 const utils = require('../utils');
 const { processKeyWord, getFilename, isEmpty } =  utils;
-const config = require('../../mock_config');
+const { fixedPath } = require('constants')
+const config = require(fixedPath + '/mock_config');
 
 // 监听mock文件夹的修改以生成ts类型
-const watcher = chokidar.watch(path.resolve(__dirname, '../..' +config.mockPath), {
+const watcher = chokidar.watch(path.resolve(__dirname, fixedPath + config.mockPath), {
   ignored: /.*\.(?!js$)/,
 });
 
@@ -27,9 +28,9 @@ function start () {
     // 重组成路径
     filePath = file.join('/')
     // 生成的ts文件的存放地址
-    const basePath = path.resolve(__dirname, '../..' + config.apisPath + filePath + '.ts');
+    const basePath = path.resolve(__dirname, fixedPath + config.apisPath + filePath + '.ts');
     // 根目录
-    let initPath = path.resolve(__dirname, '../..' + config.apisPath + '/');
+    let initPath = path.resolve(__dirname, fixedPath + config.apisPath + '/');
     // 检查上级目录是否存在，不存在则生成
     for(let i = 1; i < file.length - 1; i++) {
       initPath = initPath + '/' + file[i]

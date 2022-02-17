@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const fs = require('fs');
 const path = require('path');
-const config = require('../../mock_config');
+const { fixedPath } = require('constants')
+const config = require(fixedPath +'/mock_config');
 
 function getMockPath(mockPath) {
   const fileGroup = fs.readdirSync(mockPath);
@@ -20,7 +21,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-getMockPath(path.resolve(__dirname, '../..'+ config.mockPath)).forEach((item, index) => {
+getMockPath(path.resolve(__dirname, fixedPath + config.mockPath)).forEach((item, index) => {
   router.get(item.path, function(req, res, next) {
     res.send(require(item.fileName).response);
   })

@@ -2,17 +2,18 @@ const chokidar = require('chokidar');
 const path = require('path');
 const fs = require('fs');
 const template = require('../utils/template')
-const config = require('../../mock_config');
+const { fixedPath } = require('constants')
+const config = require(fixedPath + '/mock_config');
 const workTree = []
 let isReady = false
 
 // 监听mock文件夹
-const watcher = chokidar.watch(path.resolve(__dirname, '../..' + config.mockPath), {
+const watcher = chokidar.watch(path.resolve(__dirname, fixedPath + config.mockPath), {
   ignored: /.*\.(?!js$)/,
 });
 
 function start() {
-  console.log('开启mock模版生成服务,监听路径：', path.resolve(__dirname, '../..' + config.mockPath))
+  console.log('开启mock模版生成服务,监听路径：', path.resolve(__dirname, fixedPath + config.mockPath))
   // 在ready状态后，监听到文件新建则自动填充模版
   watcher.on('add', path => {
       if (!isReady) {
