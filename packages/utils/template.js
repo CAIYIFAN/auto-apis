@@ -1,6 +1,7 @@
-const utils = require('./utils');
+const utils = require('.');
 const { toTsType } = utils;
 
+// ts模版
 const getTsTemplate = ({ fileName, data, config }) => {
   const getMethod = () => {
     if (data.method === 'GET') return config.requestGet;
@@ -20,6 +21,7 @@ export async function ${fileName}(params: ${fileName}Params): Promise<${fileName
 }`;
 };
 
+// apis的index文件模版
 const getIndexTemplate = (data) => {
   const importFileNames = data.map((item) => `import { ${item} } from './${item}';\n`).join('');
 
@@ -30,31 +32,31 @@ export default {
 ${exportFileNames}};`;
 };
 
+// mock模版
 const getMockTemplate = (path) => {
   return (
     `const path = '${path}'
 
-    const method = 'GET'
+const method = 'GET'
     
-    const description = ''
+const description = ''
     
-    const query = {
+const query = {
     
-    }
+}
     
-    const response = {
-      ret: '0',
-      msg: 'success'
-    }
+const response = {
+
+}
     
-    module.exports = {
-      path,
-      method,
-      description,
-      query,
-      response,
-    }
-    `
+module.exports = {
+  path,
+  method,
+  description,
+  query,
+  response,
+}
+`
   )
 }
 

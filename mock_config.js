@@ -3,5 +3,6 @@ module.exports = {
   requestPath: '@/common/request',
   requestGet: 'requestGet',
   requestPost: 'requestPost',
-  apisPath: '/src/apis'
+  apisPath: '/src/apis',
+  // mockTemplate: (path) => {return ''}
 }

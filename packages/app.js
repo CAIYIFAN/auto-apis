@@ -5,13 +5,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-const apisWatcher = require('./apis_watcher');
-const mockWatcher = require('./mock_watcher');
+const mockWatcher = require('./servers/mock_watcher');
+const apisWatcher = require('./servers/apis_watcher');
 
 var app = express();
-apisWatcher.start();
+// 启动mock服务
 mockWatcher.start();
+// 启动自动生成api文件服务
+apisWatcher.start();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -23,7 +25,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

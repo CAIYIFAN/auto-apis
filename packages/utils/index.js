@@ -1,6 +1,7 @@
-const constants = require('./constants')
+const constants = require('../constants')
 const fs = require('fs')
 
+// 处理js存在关键字，无法作为变量名的问题
 function processKeyWord(fileName, addKeywords='') {
   if (constants.keywords.includes(fileName)) {
     return addKeywords+'_'+fileName;
@@ -8,10 +9,19 @@ function processKeyWord(fileName, addKeywords='') {
   return fileName;
 }
 
+// 获取文件路径
 function getFilename(path) {
   const ar = path.split('/');
   const filename = ar[ar.length - 1].slice(0, -3);
   return '/' + filename.split(/_+/).join('/');
+}
+
+// 判断是否为空对象
+function isEmpty(obj) {
+  for (var i in obj) { // 如果不为空，则会执行到这一步，返回false
+    return false
+  }
+  return true // 如果为空,返回true
 }
 
 const toString = Object.prototype.toString;
@@ -20,12 +30,14 @@ function isObject (obj) {
   return toString.call(obj) === '[object Object]';
 }
 
+
 function toTsType (data) {
   toTsObj(data);
   const strs = JSON.stringify(data);
   const str = toDeleteStr(toDeleteStr(strs, '"'), ',')
   return str;
 }
+
 
 function toTsObj(data) {
   for (let key in data) {
@@ -69,5 +81,6 @@ module.exports = {
   getFilename,
   toTsType,
   toDeleteStr,
-  getMockPath
+  getMockPath,
+  isEmpty
 }
