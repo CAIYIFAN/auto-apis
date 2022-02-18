@@ -4,7 +4,7 @@ const path = require('path');
 const template = require('../utils/template');
 const utils = require('../utils');
 const { processKeyWord, getFilename, isEmpty } =  utils;
-const { fixedPath } = require('constants')
+const { fixedPath } = require('../constants')
 const config = require(fixedPath + '/mock_config');
 
 // 监听mock文件夹的修改以生成ts类型
