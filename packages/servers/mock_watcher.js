@@ -26,7 +26,9 @@ function start() {
               const requestPath = '/' + fileGroup[fileGroup.length-1].split('_').join('/').split('.')[0]
               console.log(`给${path}写入mock模版`)
               // 写入模版
-              !!config.mockTemplate ? fs.writeFileSync(path, config.mockTemplate(requestPath)): fs.writeFileSync(path, template.getMockTemplate(requestPath))
+              if(!fs.existsSync(path)) {
+                !!config.mockTemplate ? fs.writeFileSync(path, config.mockTemplate(requestPath)): fs.writeFileSync(path, template.getMockTemplate(requestPath))
+              }
               // fs.writeFileSync(path, template.getMockTemplate(requestPath))
               // workTree中记录该路径
               workTree.push(path)

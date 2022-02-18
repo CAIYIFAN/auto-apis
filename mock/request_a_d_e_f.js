@@ -9,7 +9,7 @@ const query = {
 }
     
 const response = {
-  ret: '0'
+
 }
     
 module.exports = {
