@@ -14,6 +14,7 @@ const watcher = chokidar.watch(path.resolve(__dirname, fixedPath + config.mockPa
 
 function start () {
   watcher.on('change', (key) => {
+    console.log('唱歌')
     // 清除require缓存
     delete require.cache[require.resolve(key)]
     // 获取mock数据
