@@ -14,11 +14,14 @@ const watcher = chokidar.watch(path.resolve(__dirname, fixedPath + config.mockPa
 
 function start () {
   watcher.on('change', (key) => {
-    console.log('唱歌')
     // 清除require缓存
     delete require.cache[require.resolve(key)]
     // 获取mock数据
     const data = require(key);
+    if (!data.autoTs) {
+      console.log('不需要自动生成ts')
+      return false
+    }
     // 请求路径
     let filePath = getFilename(key);
     const file = filePath.split('/');

@@ -4,13 +4,16 @@ const method = 'GET'
 
 const description = ''
 
+const autoTs = true
+
 const query = {
 
 }
 
 const response = {
   ret: '0',
-  msg: 'success'
+  msg: 'success',
+  data: [{id: 'name'}]
 }
 
 module.exports = {
@@ -19,4 +22,5 @@ module.exports = {
   description,
   query,
   response,
+  autoTs
 }

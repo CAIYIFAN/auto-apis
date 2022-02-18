@@ -34,7 +34,7 @@ function isObject (obj) {
 function toTsType (data) {
   toTsObj(data);
   const strs = JSON.stringify(data);
-  const str = toDeleteStr(toDeleteStr(strs, '"'), ',')
+  const str = toDeleteStr(toDeleteStr(toDeleteStr(strs, '"'), ','), '\\')
   return str;
 }
 
@@ -47,7 +47,7 @@ function toTsObj(data) {
       if (typeof data[key] === 'object') {
         if (Array.isArray(data[key])) {
           toTsObj(data[key][0]);
-          data[key] = `Array<{${JSON.stringify(data[key][0])}}> | [];`;
+          data[key] = `Array<${JSON.stringify(data[key][0])}> | [];`;
         }
       } else {
         data[key] = typeof data[key] + ';';

@@ -40,6 +40,8 @@ const getMockTemplate = (path) => {
 const method = 'GET'
     
 const description = ''
+
+const autoTs = false
     
 const query = {
     
@@ -55,6 +57,7 @@ module.exports = {
   description,
   query,
   response,
+  autoTs,
 }
 `
   )
