@@ -31,11 +31,37 @@ function isObject (obj) {
 }
 
 
-function toTsType (data) {
-  toTsObj(data);
-  const strs = JSON.stringify(data);
+// function toTsType(data) {
+//   toTsObj(data);
+//   const strs = JSON.stringify(data);
+//   const str = toDeleteStr(toDeleteStr(toDeleteStr(strs, '"'), ','), '\\')
+//   return str;
+// }
+
+function toTsType(data) {
+  const result = toTsObj2(data);
+  const strs = JSON.stringify(result);
   const str = toDeleteStr(toDeleteStr(toDeleteStr(strs, '"'), ','), '\\')
   return str;
+}
+
+
+function toTsObj2(data) {
+    // 理论上入参只会是对象
+    let result =  Array.isArray(data) ? [] : {};
+    for(let key in data) {
+      if (!data.hasOwnProperty(key)) return;
+      if (typeof data[key] === 'object') {
+        if (Array.isArray(data[key])) {
+          result[key] = typeof data[key][0] !== 'object' ? `Array<${typeof data[key][0]}> | [];` : `Array<${JSON.stringify(toTsObj2(data[key][0]))}> | [];`
+        } else {
+          result[key] = toTsObj2(data[key])
+        }
+      } else {
+        result[key] = typeof data[key] + ';';
+      }
+    }
+    return result;
 }
 
 
@@ -47,7 +73,11 @@ function toTsObj(data) {
       if (typeof data[key] === 'object') {
         if (Array.isArray(data[key])) {
           toTsObj(data[key][0]);
-          data[key] = `Array<${JSON.stringify(data[key][0])}> | [];`;
+          if (typeof data[key][0] === 'number' || typeof data[key][0] === 'string' || typeof data[key][0] === 'boolean') {
+            data[key] = `Array<${typeof data[key][0]}> | [];`
+          } else {
+            data[key] = `Array<${JSON.stringify(data[key][0])}> | [];`;
+          }
         }
       } else {
         data[key] = typeof data[key] + ';';
@@ -80,6 +110,7 @@ module.exports = {
   processKeyWord,
   getFilename,
   toTsType,
+  // toTsType2,
   toDeleteStr,
   getMockPath,
   isEmpty
